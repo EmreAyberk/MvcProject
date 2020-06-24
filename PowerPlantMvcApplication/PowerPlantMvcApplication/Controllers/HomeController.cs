@@ -22,7 +22,13 @@ namespace PowerPlantMvcApplication.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeIndexModel
+            {
+                NewVisitor = new []{3, 3, 8, 5, 7, 4, 6, 4, 6, 3},
+                OldVisitor = new []{ 7, 5, 14, 7, 12, 6, 10, 6, 11, 5 },
+                SearchModel = new HomeIndexModel()
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()
