@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PowerPlantMvcApplication.Data;
 
 namespace PowerPlantMvcApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200702193525_ElectrometerAdded")]
+    partial class ElectrometerAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,29 +259,6 @@ namespace PowerPlantMvcApplication.Migrations
                     b.ToTable("PowerPlants");
                 });
 
-            modelBuilder.Entity("PowerPlantMvcApplication.Data.PowerPlantUnit", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("Capacity")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("PowerPlantId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PowerPlantId");
-
-                    b.ToTable("PowerPlantUnits");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -332,13 +311,6 @@ namespace PowerPlantMvcApplication.Migrations
                 });
 
             modelBuilder.Entity("PowerPlantMvcApplication.Data.Electrometer", b =>
-                {
-                    b.HasOne("PowerPlantMvcApplication.Data.PowerPlant", "PowerPlant")
-                        .WithMany()
-                        .HasForeignKey("PowerPlantId");
-                });
-
-            modelBuilder.Entity("PowerPlantMvcApplication.Data.PowerPlantUnit", b =>
                 {
                     b.HasOne("PowerPlantMvcApplication.Data.PowerPlant", "PowerPlant")
                         .WithMany()

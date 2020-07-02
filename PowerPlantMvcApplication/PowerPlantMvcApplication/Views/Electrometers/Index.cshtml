@@ -1,0 +1,90 @@
+﻿@model List<PowerPlantMvcApplication.Data.Electrometer>
+@{
+    ViewData["Title"] = "Electrometer List";
+}
+@Html.Partial("_Sidebar")
+@Html.Partial("_Topbar")
+
+<div class="clearfix"></div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Electrometer List
+                            <a asp-action="Edit" class="btn btn-success"> Create new Electrometer</a>
+                        </h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Actions</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Powerplant</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@item.Id</th>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="javascript:deleteById(@item.Id)" class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                        <td>@item.Name</td>
+                                        <td>@item.PowerPlant?.Name</td>
+                                        <td>@item.Value</td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overlay toggle-menu"></div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="text-center">
+            Copyright © 2018 Dashtreme Admin
+        </div>
+    </div>
+</footer>
+<!--End footer-->
+
+<!--End footer-->
+@Html.Partial("_RightSidebar")
+
+@section Scripts
+{
+    <script>
+    function deleteById(id){
+        $.getJSON('@Url.Action("Delete")', {id:id}).done(function(){
+            swal({icon:'success', text:'Deleted successfully!'}).then(function(){
+                location.reload();
+            });
+        });
+    }
+    function showSuccess() {
+      swal({icon:'success', text:'Saved successfully!'}).then(function(){
+                  });
+    }
+    </script>
+
+    @if (TempData["Success"]?.Equals("1") == true)
+    {
+        <script> 
+        showSuccess();
+        </script>
+    }
+
+}
