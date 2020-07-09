@@ -24,7 +24,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Actions</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Powerplant</th>
+                                    <th scope="col">Powerplant Unit</th>
                                     <th scope="col">Value</th>
                                 </tr>
                                 </thead>
@@ -38,7 +38,7 @@
                                             <a href="javascript:deleteById(@item.Id)" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                         <td>@item.Name</td>
-                                        <td>@item.PowerPlant?.Name</td>
+                                        <td>@item.PowerPlantUnit?.Name</td>
                                         <td>@item.Value</td>
                                     </tr>
                                 }

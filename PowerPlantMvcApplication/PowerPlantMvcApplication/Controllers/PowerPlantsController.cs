@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PowerPlantMvcApplication.Data;
+using PowerPlantMvcApplication.Models.Dto;
 
 namespace PowerPlantMvcApplication.Controllers
 {
@@ -29,6 +30,27 @@ namespace PowerPlantMvcApplication.Controllers
                 return View(new PowerPlant());
             var entity = await _dbContext.PowerPlants.FirstOrDefaultAsync(e => e.Id == id);
             return View(entity);
+        }
+
+        public async Task<IActionResult> Diagram(long? id)
+        {
+            var powerPlant = await _dbContext.PowerPlants.Where(p => p.Id == id).FirstOrDefaultAsync();
+            var ppUnitList = await _dbContext.PowerPlantUnits.Where(p => p.PowerPlantId == id).ToListAsync();
+            var unitIds = ppUnitList.Select(e => e.Id).ToArray();
+            var electrometerList = await _dbContext.Electrometers.Where(e => unitIds.Contains(e.PowerPlantUnitId.Value)).ToListAsync();
+            
+            var diagramData = new DiagramNodeDto()
+            {
+                name = powerPlant.Name,
+                children = ppUnitList.Select(u=>new DiagramNodeDto{
+                    name = u.Name,
+                    children = electrometerList.Where(e=>e.PowerPlantUnitId == u.Id).Select(e=>new DiagramNodeDto
+                    {
+                        name = e.Name
+                    }).ToList()
+                }).ToList()
+            };
+            return View(diagramData);
         }
 
         [HttpPost]

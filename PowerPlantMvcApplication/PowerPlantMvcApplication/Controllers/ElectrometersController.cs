@@ -16,15 +16,15 @@ namespace PowerPlantMvcApplication.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var list = await _dbContext.Electrometers.Include("PowerPlant").ToListAsync();
+            var list = await _dbContext.Electrometers.Include("PowerPlantUnit").ToListAsync();
             
             return View(list);
         }
 
         public async Task<IActionResult> Edit(long? id)
         {
-            var ppList = await _dbContext.PowerPlants.ToListAsync();
-            ViewData["PowerPlantList"] = ppList;
+            var ppUnitList = await _dbContext.PowerPlantUnits.ToListAsync();
+            ViewData["PowerPlantUnitList"] = ppUnitList;
             
             if (id == null){return View(new Electrometer());}
             var entity = await _dbContext.Electrometers.FirstOrDefaultAsync(e => e.Id == id);
@@ -44,7 +44,7 @@ namespace PowerPlantMvcApplication.Controllers
 
             entity.Name = input.Name;
             entity.Value = input.Value;
-            entity.PowerPlantId = input.PowerPlantId;
+            entity.PowerPlantUnitId = input.PowerPlantUnitId;
             
             await _dbContext.SaveChangesAsync();
             TempData["Success"] = "1";

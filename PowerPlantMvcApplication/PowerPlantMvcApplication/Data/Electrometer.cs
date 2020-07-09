@@ -7,9 +7,9 @@ namespace PowerPlantMvcApplication.Data
     {
         [Key] public long Id { get; set; }
         public string Name { get; set; }
-        [ForeignKey(nameof(PowerPlantId))]
-        public PowerPlant PowerPlant { get; set; }
-        public long? PowerPlantId { get; set; }
+        [ForeignKey(nameof(PowerPlantUnitId))]
+        public PowerPlantUnit PowerPlantUnit { get; set; }
+        public long? PowerPlantUnitId { get; set; }
         public long Value { get; set; }
     }
 }
