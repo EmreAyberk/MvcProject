@@ -1,0 +1,78 @@
+﻿@using Newtonsoft.Json
+@model List<PowerPlantMvcApplication.Models.Dto.GridGenerationDto>
+@{
+    ViewData["Title"] = "PowerPlant List";
+}
+
+<head>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+</head>
+@Html.Partial("_Sidebar")
+
+@Html.Partial("_Topbar")
+
+<div class="clearfix"></div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="myGrid" style="height: 900px; width: available;" class="ag-theme-alpine"></div>
+                    </div>
+                </div>
+            </div>
+        </div><!--End Row-->
+
+        <!--start overlay-->
+        <div class="overlay toggle-menu"></div>
+        <!--end overlay-->
+
+    </div>
+    <!-- End container-fluid-->
+
+</div><!--End content-wrapper-->
+
+<!--Start footer-->
+<footer class="footer">
+    <div class="container">
+        <div class="text-center">
+            Copyright © 2018 Dashtreme Admin
+        </div>
+    </div>
+</footer>
+<!--End footer-->
+
+<!--End footer-->
+@Html.Partial("_RightSidebar")
+
+@section Scripts
+{
+    <script>
+    var columnDefs = [
+      {headerName: "PowerPlant", field: "powerplant"},
+      {headerName: "PowerPlant Unit", field: "unit"},
+      {headerName: "Unit Capacity", field: "unitValue"},
+      {headerName: "Electrometer Name", field: "electrometerName"},
+      {headerName: "Electrometer Value", field: "electrometerValue"},
+      {headerName: "Overload", field: "isOverLoad"}
+    ];
+        
+    // specify the data
+    var rowData = @Html.Raw(JsonConvert.SerializeObject(Model));
+        
+    // let the grid know which columns and what data to use
+    var gridOptions = {
+      columnDefs: columnDefs,
+      rowData: rowData
+    };
+    
+    // setup the grid after the page has finished loading
+    document.addEventListener('DOMContentLoaded', function() {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+    </script>
+}

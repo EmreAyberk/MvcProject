@@ -117,15 +117,15 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
-      <Content Update="Views\Stoppage\Edit.cshtml">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
       <Content Update="Views\Stoppage\Index.cshtml">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
       <Content Update="Views\PowerPlants\Diagram.cshtml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="Views\Stoppage\Grid.cshtml">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
@@ -726,10 +726,6 @@
       <_ContentIncludedByDefault Remove="wwwroot\theme\assets\plugins\simplebar\js\simplebar.js" />
       <_ContentIncludedByDefault Remove="wwwroot\theme\assets\plugins\sparkline-charts\jquery.sparkline.min.js" />
       <_ContentIncludedByDefault Remove="wwwroot\theme\assets\plugins\sparkline-charts\sparkline-chart-script.js" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Views\Diagram" />
     </ItemGroup>
 
 </Project>

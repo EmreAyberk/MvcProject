@@ -8,7 +8,7 @@ $(function() {
 			var myChart = new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+					labels: labels,
 					datasets: [{
 						label: 'New Visitor',
 						data: newVisitor,

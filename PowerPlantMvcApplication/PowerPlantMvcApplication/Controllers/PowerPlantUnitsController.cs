@@ -36,12 +36,12 @@ namespace PowerPlantMvcApplication.Controllers
         public async Task<IActionResult> Edit(PowerPlantUnit input)
         {
             var entity = await _dbContext.PowerPlantUnits.FirstOrDefaultAsync(u => u.Id == input.Id);
-            if (entity == null)
             {
                 entity = new PowerPlantUnit();
                 await _dbContext.PowerPlantUnits.AddAsync(entity);
             }
 
+            if(entity.Capacity<0)
             entity.Name = input.Name;
             entity.Capacity = input.Capacity;
             entity.PowerPlantId = input.PowerPlantId;

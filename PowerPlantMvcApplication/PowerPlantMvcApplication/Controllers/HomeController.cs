@@ -5,8 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Operations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using PowerPlantMvcApplication.Data;
 using PowerPlantMvcApplication.Models;
+using PowerPlantMvcApplication.Models.Dto;
 
 namespace PowerPlantMvcApplication.Controllers
 {
@@ -14,19 +19,40 @@ namespace PowerPlantMvcApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
-            var model = new HomeIndexModel
+            var ppUnitList = _dbContext.PowerPlantUnits.ToList();
+            var electrometerList = _dbContext.Electrometers.Include("PowerPlantUnit").ToList();
+            var valueArray = new List<int>();
+            var capacityarray = new List<int>();
+            foreach (var em in electrometerList)
             {
-                NewVisitor = new []{3, 3, 8, 5, 7, 4, 6, 4, 6, 3},
-                OldVisitor = new []{ 7, 5, 14, 7, 12, 6, 10, 6, 11, 5 },
-                SearchModel = new HomeIndexModel()
+                valueArray.Add(Convert.ToInt32(em.Value));
+                foreach (var unit in ppUnitList)
+                {
+                    if (em.PowerPlantUnitId == unit.Id)
+                    {
+                        var unitEms = electrometerList.Where(e => e.PowerPlantUnitId == unit.Id).Count();
+                        capacityarray.Add(Convert.ToInt32(unit.Capacity)/unitEms);
+                        break;
+                    }
+                }
+            }
+
+            var model = new HomeIndexDto
+            {
+                Labels = electrometerList.Select(e => e.Name).ToArray(),
+                Values = valueArray.ToArray(),
+                Capacity = capacityarray.ToArray(),
+                SearchDto = new HomeIndexDto()
             };
             return View(model);
         }

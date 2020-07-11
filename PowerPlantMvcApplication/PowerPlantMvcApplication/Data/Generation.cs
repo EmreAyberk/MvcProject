@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PowerPlantMvcApplication.Data
 {
-    public class Stoppage
+    public class Generation
     {
         [Key] public long Id { get; set; }
         

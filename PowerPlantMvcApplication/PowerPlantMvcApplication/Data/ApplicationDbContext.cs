@@ -12,7 +12,7 @@ namespace PowerPlantMvcApplication.Data
         public virtual DbSet<PowerPlant> PowerPlants { get; set; }
         public virtual DbSet<Electrometer> Electrometers { get; set; }
         public virtual DbSet<PowerPlantUnit> PowerPlantUnits { get; set; }
-        public virtual DbSet<Stoppage> Stoppages { get; set; }
+        public virtual DbSet<Generation> Generations { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

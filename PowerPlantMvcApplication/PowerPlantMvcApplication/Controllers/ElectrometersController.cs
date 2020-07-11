@@ -16,7 +16,7 @@ namespace PowerPlantMvcApplication.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var list = await _dbContext.Electrometers.Include("PowerPlantUnit").ToListAsync();
+            var list = await _dbContext.Electrometers.Include(x=>x.PowerPlantUnit.PowerPlant).ToListAsync();
             
             return View(list);
         }
